@@ -18,6 +18,13 @@
             "polyfills": [
               "zone.js"
             ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "src/styles.css"
             ],

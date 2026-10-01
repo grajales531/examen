@@ -5,7 +5,7 @@ import { BlueEyesComponent } from './components/blue-eyes/blue-eyes.component';
 @Component({ selector: 'app-root', standalone: true, imports: [SearchComponent, BlueEyesComponent],
   template: `<main>
     <header class="hero">
-      <div class="hero-mark" aria-hidden="true">✦</div>
+      <img class="hero-logo" src="assets/dark-magician-girl.jpg" alt="Dark Magician Girl" width="100" height="100">
       <div>
         <p class="eyebrow">Explorador de cartas · Yu-Gi-Oh!</p>
         <h1>Blue-Eyes <span>Card Explorer</span></h1>
