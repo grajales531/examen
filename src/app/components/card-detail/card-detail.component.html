@@ -1,1 +1,47 @@
-<section><h3>{{ card.name }}</h3><p>{{ card.desc }}</p></section>
+<section class="detail" aria-live="polite">
+  <h3>Detalle: {{ card.name }}</h3>
+  <div class="detail__summary">
+    <img
+      [appCachedImage]="card.card_images[0]?.image_url"
+      [alt]="'Carta ' + card.name"
+      width="421"
+      height="614"
+    >
+    <div>
+      <dl>
+        <div><dt>Nombre</dt><dd>{{ card.name }}</dd></div>
+        <div><dt>Tipo</dt><dd>{{ showValue(card.type) }}</dd></div>
+        <div><dt>Atributo</dt><dd>{{ showValue(card.attribute) }}</dd></div>
+        <div><dt>Nivel</dt><dd>{{ showValue(card.level) }}</dd></div>
+        <div><dt>ATK</dt><dd>{{ showValue(card.atk) }}</dd></div>
+        <div><dt>DEF</dt><dd>{{ showValue(card.def) }}</dd></div>
+        <div><dt>Arquetipo</dt><dd>{{ showValue(card.archetype) }}</dd></div>
+      </dl>
+      <h4>Descripción</h4>
+      <p>{{ card.desc }}</p>
+    </div>
+  </div>
+
+  <h4>Impresiones disponibles</h4>
+  @if (card.card_sets?.length) {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Expansión</th><th>Código</th><th>Rareza</th><th>Precio (USD)</th></tr>
+        </thead>
+        <tbody>
+          @for (printing of card.card_sets; track printing.set_code + printing.set_rarity) {
+            <tr>
+              <td>{{ printing.set_name }}</td>
+              <td>{{ printing.set_code }}</td>
+              <td>{{ printing.set_rarity }}</td>
+              <td>${{ printing.set_price }} USD</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="notice">Esta carta no tiene impresiones disponibles.</p>
+  }
+</section>

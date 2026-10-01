@@ -1,1 +1,19 @@
-<article><h3>{{ card.name }}</h3><button type="button" (click)="selected.emit(card)">Ver detalle</button></article>
+<article class="card">
+  <img
+    [appCachedImage]="card.card_images[0]?.image_url_small"
+    [alt]="'Carta ' + card.name"
+    width="218"
+    height="319"
+  >
+  <div class="card__content">
+    <h3>{{ card.name }}</h3>
+    <dl>
+      <div><dt>Tipo</dt><dd>{{ showValue(card.type) }}</dd></div>
+      <div><dt>Atributo</dt><dd>{{ showValue(card.attribute) }}</dd></div>
+      <div><dt>Nivel</dt><dd>{{ showValue(card.level) }}</dd></div>
+      <div><dt>ATK</dt><dd>{{ showValue(card.atk) }}</dd></div>
+      <div><dt>DEF</dt><dd>{{ showValue(card.def) }}</dd></div>
+    </dl>
+    <button type="button" (click)="selected.emit(card)">Ver detalle</button>
+  </div>
+</article>

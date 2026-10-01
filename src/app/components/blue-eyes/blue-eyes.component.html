@@ -1,1 +1,36 @@
-<section><h2>Blue-Eyes Collection</h2><p>Actividad pendiente de implementar.</p></section>
+<section class="collection">
+  <h2>Blue-Eyes Collection</h2>
+
+  @if (state === 'loading') {
+    <p class="status" role="status">Cargando la colección Blue-Eyes...</p>
+  } @else if (state === 'error') {
+    <p class="status status--error" role="alert">No fue posible cargar la colección. Intenta de nuevo más tarde.</p>
+  } @else if (state === 'empty') {
+    <p class="status">La colección Blue-Eyes está vacía.</p>
+  } @else {
+    <div class="controls">
+      <label for="expansion">Filtrar por expansión</label>
+      <select id="expansion" [value]="selectedExpansion" (change)="onExpansionChange($event)">
+        <option value="">Todas las expansiones</option>
+        @for (expansion of expansions; track expansion) {
+          <option [value]="expansion">{{ expansion }}</option>
+        }
+      </select>
+      <span>{{ filteredCards.length }} de {{ cards.length }} cartas</span>
+    </div>
+
+    @if (filteredCards.length === 0) {
+      <p class="status">No hay cartas que coincidan con la expansión seleccionada.</p>
+    } @else {
+      <div class="card-grid">
+        @for (card of filteredCards; track card.id) {
+          <app-card [card]="card" (selected)="selectCard($event)" />
+        }
+      </div>
+    }
+
+    @if (selectedCard) {
+      <app-card-detail [card]="selectedCard" />
+    }
+  }
+</section>
