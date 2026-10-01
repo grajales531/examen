@@ -21,8 +21,14 @@ export class BlueEyesComponent {
   cards: Card[] = [];
   filteredCards: Card[] = [];
   expansions: string[] = [];
+  expansionQuery = '';
   selectedExpansion = '';
   selectedCard?: Card;
+
+  get visibleExpansions(): string[] {
+    const query = this.expansionQuery.trim().toLowerCase();
+    return query ? this.expansions.filter(name => name.toLowerCase().includes(query)) : this.expansions;
+  }
 
   constructor() {
     this.yugiohService.getBlueEyes()
@@ -45,7 +51,15 @@ export class BlueEyesComponent {
   }
 
   onExpansionChange(event: Event): void {
-    this.selectedExpansion = (event.target as HTMLSelectElement).value;
+    this.chooseExpansion((event.target as HTMLSelectElement).value);
+  }
+
+  onExpansionQuery(event: Event): void {
+    this.expansionQuery = (event.target as HTMLInputElement).value;
+  }
+
+  chooseExpansion(expansion: string): void {
+    this.selectedExpansion = expansion;
     this.filteredCards = this.selectedExpansion
       ? this.cards.filter(card => card.card_sets?.some(
           printing => printing.set_name === this.selectedExpansion

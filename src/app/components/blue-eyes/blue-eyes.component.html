@@ -13,12 +13,26 @@
     <div class="controls">
       <label for="expansion">Filtrar por expansión</label>
       <select id="expansion" [value]="selectedExpansion" (change)="onExpansionChange($event)">
-        <option value="">Todas las expansiones</option>
+        <option value="" [selected]="selectedExpansion === ''">Todas las expansiones</option>
         @for (expansion of expansions; track expansion) {
-          <option [value]="expansion">{{ expansion }}</option>
+          <option [value]="expansion" [selected]="selectedExpansion === expansion">{{ expansion }}</option>
         }
       </select>
       <span>{{ filteredCards.length }} de {{ cards.length }} cartas</span>
+    </div>
+
+    <div class="expansion-list">
+      <h3>Expansiones donde se imprimieron cartas Blue-Eyes</h3>
+      <p>Estas {{ expansions.length }} expansiones vienen de las impresiones de las cartas de la colección.</p>
+      <label for="expansion-search">Buscar una expansión</label>
+      <input id="expansion-search" type="search" [value]="expansionQuery" (input)="onExpansionQuery($event)" placeholder="Escribe parte del nombre">
+      <div class="expansion-list__names">
+        @for (expansion of visibleExpansions; track expansion) {
+          <button type="button" [class.selected]="selectedExpansion === expansion" (click)="chooseExpansion(expansion)">{{ expansion }}</button>
+        } @empty {
+          <p>No hay expansiones con ese nombre.</p>
+        }
+      </div>
     </div>
 
     @if (filteredCards.length === 0) {

@@ -17,8 +17,6 @@
         <div><dt>DEF</dt><dd>{{ showValue(card.def) }}</dd></div>
         <div><dt>Arquetipo</dt><dd>{{ showValue(card.archetype) }}</dd></div>
       </dl>
-      <h4>Descripción</h4>
-      <p>{{ card.desc }}</p>
     </div>
   </div>
 
@@ -44,4 +42,6 @@
   } @else {
     <p class="notice">Esta carta no tiene impresiones disponibles.</p>
   }
+  <h4>Descripción</h4>
+  <p>{{ card.desc }}</p>
 </section>
