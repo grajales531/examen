@@ -21,6 +21,9 @@
     </div>
   </div>
 
+  <h4>Descripción</h4>
+  <p>{{ card.desc }}</p>
+
   <h4>Impresiones disponibles</h4>
   @if (card.card_sets?.length) {
     <div class="table-wrapper">
@@ -43,6 +46,4 @@
   } @else {
     <p class="notice">Esta carta no tiene impresiones disponibles.</p>
   }
-  <h4>Descripción</h4>
-  <p>{{ card.desc }}</p>
 </section>
