@@ -7,6 +7,7 @@ select { min-width: 250px; padding: .6rem; border: 1px solid #729bd2; border-rad
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(218px, 1fr)); gap: 1.25rem; align-items: stretch; }
 .status { padding: 1rem; border-left: 4px solid #3974c3; background: #edf4ff; color: #172638; }
 .status--error { border-left-color: #ad2424; color: #761919; background: #fff0f0; }
+.price-note { color: #c3d7ed; font-size: .88rem; }
 .expansion-list { margin: 0 0 1.5rem; padding: 1rem; border: 1px solid #537aa6; border-radius: 10px; background: #173353; }
 .expansion-list h3 { margin: 0 0 .4rem; color: #f1d78d; }
 .expansion-list p { margin: .3rem 0 1rem; color: #c3d7ed; }

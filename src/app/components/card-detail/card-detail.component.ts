@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Card, cardPriceText } from '../../models/card';
+import { Card, cardPriceText, printingPriceText } from '../../models/card';
 import { CachedImageDirective } from '../card/cached-image.directive';
 
 @Component({
@@ -17,4 +17,5 @@ export class CardDetailComponent {
   }
 
   priceText(card: Card): string { return cardPriceText(card); }
+  printingPriceText(price: string): string { return printingPriceText(price); }
 }

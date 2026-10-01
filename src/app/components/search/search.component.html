@@ -28,6 +28,9 @@
           </select>
           <p>{{ getVisibleCards(result.cards).length }} de {{ result.cards.length }} cartas en esta búsqueda</p>
         }
+        @if (getUnpricedCount(getVisibleCards(result.cards)) > 0) {
+          <p>{{ getUnpricedCount(getVisibleCards(result.cards)) }} {{ getUnpricedCount(getVisibleCards(result.cards)) === 1 ? 'carta visible no tiene' : 'cartas visibles no tienen' }} precio publicado por la API.</p>
+        }
         @if (getVisibleCards(result.cards).length === 0) {
           <p>No hay cartas de esta búsqueda en esa expansión.</p>
         }

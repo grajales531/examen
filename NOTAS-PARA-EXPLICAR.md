@@ -8,7 +8,7 @@
 
 **Datos que pueden faltar:** magia, trampa y monstruos Link no siempre tienen nivel, ATK o DEF. Se muestra “No aplica” cuando el campo no existe; un `0` sí es un valor válido. Las imágenes vienen en `card_images`.
 
-**Precios:** la tarjeta muestra un precio aproximado de `card_prices` (o el menor precio disponible en `card_sets`). El detalle muestra el precio de cada impresión por separado. Si la API no ofrece ninguno, se indica “No disponible”.
+**Precios:** la tarjeta muestra un precio aproximado de `card_prices` (o el menor positivo en `card_sets`). El detalle muestra cada impresión por separado. Si la API solo devuelve `0` o no da precio, se indica “Sin precio publicado”; no significa que la carta sea gratis.
 
 **Imágenes:** se intentan guardar en la caché del navegador. El servidor de imágenes no permite descargarlas desde JavaScript por CORS; si ocurre, se muestran por su URL y el navegador usa su caché HTTP.
 

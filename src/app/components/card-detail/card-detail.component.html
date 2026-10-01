@@ -34,7 +34,7 @@
               <td>{{ printing.set_name }}</td>
               <td>{{ printing.set_code }}</td>
               <td>{{ printing.set_rarity }}</td>
-              <td>${{ printing.set_price }} USD</td>
+              <td>{{ printingPriceText(printing.set_price) }}</td>
             </tr>
           }
         </tbody>

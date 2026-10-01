@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { timeout } from 'rxjs';
-import { Card, ViewState } from '../../models/card';
+import { Card, ViewState, cardPrice } from '../../models/card';
 import { YugiohService } from '../../services/yugioh.service';
 import { CardComponent } from '../card/card.component';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
@@ -28,6 +28,10 @@ export class BlueEyesComponent {
   get visibleExpansions(): string[] {
     const query = this.expansionQuery.trim().toLowerCase();
     return query ? this.expansions.filter(name => name.toLowerCase().includes(query)) : this.expansions;
+  }
+
+  get unpricedCount(): number {
+    return this.cards.filter(card => cardPrice(card) === null).length;
   }
 
   constructor() {

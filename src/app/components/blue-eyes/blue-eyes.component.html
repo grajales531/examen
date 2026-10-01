@@ -20,6 +20,9 @@
       </select>
       <span>{{ filteredCards.length }} de {{ cards.length }} cartas</span>
     </div>
+    @if (unpricedCount > 0) {
+      <p class="price-note">{{ unpricedCount }} cartas de esta colección no tienen precio publicado por la API.</p>
+    }
 
     <div class="expansion-list">
       <h3>Expansiones donde se imprimieron cartas Blue-Eyes</h3>
