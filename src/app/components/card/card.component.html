@@ -13,6 +13,7 @@
       <div><dt>Nivel</dt><dd>{{ showValue(card.level) }}</dd></div>
       <div><dt>ATK</dt><dd>{{ showValue(card.atk) }}</dd></div>
       <div><dt>DEF</dt><dd>{{ showValue(card.def) }}</dd></div>
+      <div><dt>Precio aprox.</dt><dd>{{ priceText(card) }}</dd></div>
     </dl>
     <button type="button" (click)="selected.emit(card)">Ver detalle</button>
   </div>

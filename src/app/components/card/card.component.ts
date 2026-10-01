@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Card } from '../../models/card';
+import { Card, cardPriceText } from '../../models/card';
 import { CachedImageDirective } from './cached-image.directive';
 
 @Component({
@@ -17,4 +17,6 @@ export class CardComponent {
   showValue(value: string | number | undefined): string | number {
     return value ?? 'No aplica';
   }
+
+  priceText(card: Card): string { return cardPriceText(card); }
 }
