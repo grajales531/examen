@@ -16,8 +16,24 @@
           @case ('success') { <p>{{ result.cards.length }} cartas encontradas.</p> }
         }
       </div>
+      @if (result.state === 'success') {
+        @let expansions = getExpansions(result.cards);
+        @if (expansions.length > 0) {
+          <label for="search-expansion">Filtrar resultados por expansión</label>
+          <select id="search-expansion" [value]="selectedExpansion" (change)="onExpansionChange($event)">
+            <option value="" [selected]="selectedExpansion === ''">Todas las expansiones</option>
+            @for (expansion of expansions; track expansion) {
+              <option [value]="expansion" [selected]="selectedExpansion === expansion">{{ expansion }}</option>
+            }
+          </select>
+          <p>{{ getVisibleCards(result.cards).length }} de {{ result.cards.length }} cartas en esta búsqueda</p>
+        }
+        @if (getVisibleCards(result.cards).length === 0) {
+          <p>No hay cartas de esta búsqueda en esa expansión.</p>
+        }
+      }
       <div class="cards">
-        @for (card of result.cards; track card.id) {
+        @for (card of getVisibleCards(result.cards); track card.id) {
           <app-card [card]="card" (selected)="selectedCard = $event" />
         }
       </div>

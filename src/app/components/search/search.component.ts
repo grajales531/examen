@@ -16,6 +16,23 @@ export class SearchComponent {
   private readonly api = inject(YugiohService);
   readonly name = new FormControl('', { nonNullable: true });
   selectedCard: Card | null = null;
+  selectedExpansion = '';
+
+  // Solo usamos las expansiones de las cartas devueltas por esta búsqueda.
+  getExpansions(cards: Card[]): string[] {
+    const names = cards.flatMap(card => card.card_sets?.map(set => set.set_name) ?? []);
+    return [...new Set(names)].sort((first, second) => first.localeCompare(second));
+  }
+
+  getVisibleCards(cards: Card[]): Card[] {
+    return this.selectedExpansion
+      ? cards.filter(card => card.card_sets?.some(set => set.set_name === this.selectedExpansion))
+      : cards;
+  }
+
+  onExpansionChange(event: Event): void {
+    this.selectedExpansion = (event.target as HTMLSelectElement).value;
+  }
 
   readonly result$ = this.name.valueChanges.pipe(
     startWith(''),
@@ -26,6 +43,7 @@ export class SearchComponent {
     // Al cambiar el nombre cancelamos la consulta anterior, evitando resultados atrasados.
     switchMap(name => {
       this.selectedCard = null;
+      this.selectedExpansion = '';
       if (!name) return of<SearchResult>({ state: 'idle', cards: [] });
       return this.api.searchCards(name).pipe(
         map((cards): SearchResult => ({ state: cards.length ? 'success' : 'empty', cards })),
