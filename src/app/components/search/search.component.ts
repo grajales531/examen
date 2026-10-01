@@ -1,8 +1,38 @@
-import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { catchError, debounceTime, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
+import { Card, ViewState } from '../../models/card';
+import { YugiohService } from '../../services/yugioh.service';
+import { CardComponent } from '../card/card.component';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
 
-// Ángel: implementar búsqueda con debounceTime, distinctUntilChanged y switchMap; mostrar estados.
-// Usar <app-card [card]="card" (selected)="selectedCard = $event"> para seleccionar.
-// Usar <app-card-detail [card]="selectedCard"> para mostrar el detalle.
+interface SearchResult { state: ViewState; cards: Card[]; }
+
 @Component({ selector: 'app-search', standalone: true,
+  imports: [AsyncPipe, ReactiveFormsModule, CardComponent, CardDetailComponent],
   templateUrl: './search.component.html' })
-export class SearchComponent {}
+export class SearchComponent {
+  private readonly api = inject(YugiohService);
+  readonly name = new FormControl('', { nonNullable: true });
+  selectedCard: Card | null = null;
+
+  readonly result$ = this.name.valueChanges.pipe(
+    startWith(''),
+    map(name => name.trim()),
+    // Esperamos una pausa al escribir y evitamos repetir la misma búsqueda.
+    debounceTime(400),
+    distinctUntilChanged(),
+    // Al cambiar el nombre cancelamos la consulta anterior, evitando resultados atrasados.
+    switchMap(name => {
+      this.selectedCard = null;
+      if (!name) return of<SearchResult>({ state: 'idle', cards: [] });
+      return this.api.searchCards(name).pipe(
+        map((cards): SearchResult => ({ state: cards.length ? 'success' : 'empty', cards })),
+        startWith<SearchResult>({ state: 'loading', cards: [] }),
+        // Capturamos dentro de switchMap: después de un error se puede seguir buscando.
+        catchError(() => of<SearchResult>({ state: 'error', cards: [] }))
+      );
+    })
+  );
+}
