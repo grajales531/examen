@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { catchError, debounceTime, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
-import { Card, ViewState } from '../../models/card';
+import { Card, ViewState, cardPrice } from '../../models/card';
 import { YugiohService } from '../../services/yugioh.service';
 import { CardComponent } from '../card/card.component';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
@@ -28,6 +28,10 @@ export class SearchComponent {
     return this.selectedExpansion
       ? cards.filter(card => card.card_sets?.some(set => set.set_name === this.selectedExpansion))
       : cards;
+  }
+
+  getUnpricedCount(cards: Card[]): number {
+    return cards.filter(card => cardPrice(card) === null).length;
   }
 
   onExpansionChange(event: Event): void {
