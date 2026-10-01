@@ -1,7 +1,9 @@
 <section class="collection">
   <h2>Blue-Eyes Collection</h2>
-
-  @if (state === 'loading') {
+  @if (selectedCard; as card) {
+    <button type="button" (click)="selectedCard = undefined">← Volver a la colección</button>
+    <app-card-detail [card]="card" />
+  } @else if (state === 'loading') {
     <p class="status" role="status">Cargando la colección Blue-Eyes...</p>
   } @else if (state === 'error') {
     <p class="status status--error" role="alert">No fue posible cargar la colección. Intenta de nuevo más tarde.</p>
@@ -29,8 +31,5 @@
       </div>
     }
 
-    @if (selectedCard) {
-      <app-card-detail [card]="selectedCard" />
-    }
   }
 </section>

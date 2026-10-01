@@ -1,25 +1,26 @@
 <section>
   <h2>Buscar cartas</h2>
-  <label for="card-name">Nombre completo o una parte del nombre</label>
-  <input id="card-name" type="search" [formControl]="name" placeholder="Blue-Eyes, Dark Magician, Kuriboh">
   @if (result$ | async; as result) {
-    <div aria-live="polite" role="status">
-      @switch (result.state) {
-        @case ('idle') { <p>Escribe el nombre de una carta para comenzar.</p> }
-        @case ('loading') { <p>Cargando cartas…</p> }
-        @case ('empty') { <p>Sin resultados.</p> }
-        @case ('error') { <p>No se pudieron cargar las cartas. Revisa tu conexión e intenta otra búsqueda.</p> }
-        @case ('success') { <p>{{ result.cards.length }} cartas encontradas.</p> }
-      }
-    </div>
-    <div class="cards">
-      @for (card of result.cards; track card.id) {
-        <app-card [card]="card" (selected)="selectedCard = $event" />
-      }
-    </div>
-  }
-  @if (selectedCard; as card) {
-    <button type="button" (click)="selectedCard = null">Cerrar detalle</button>
-    <app-card-detail [card]="card" />
+    @if (selectedCard; as card) {
+      <button type="button" (click)="selectedCard = null">← Volver a resultados</button>
+      <app-card-detail [card]="card" />
+    } @else {
+      <label for="card-name">Nombre completo o una parte del nombre</label>
+      <input id="card-name" type="search" [formControl]="name" placeholder="Blue-Eyes, Dark Magician, Kuriboh">
+      <div aria-live="polite" role="status">
+        @switch (result.state) {
+          @case ('idle') { <p>Escribe el nombre de una carta para comenzar.</p> }
+          @case ('loading') { <p>Cargando cartas…</p> }
+          @case ('empty') { <p>Sin resultados.</p> }
+          @case ('error') { <p>No se pudieron cargar las cartas. Revisa tu conexión e intenta otra búsqueda.</p> }
+          @case ('success') { <p>{{ result.cards.length }} cartas encontradas.</p> }
+        }
+      </div>
+      <div class="cards">
+        @for (card of result.cards; track card.id) {
+          <app-card [card]="card" (selected)="selectedCard = $event" />
+        }
+      </div>
+    }
   }
 </section>
