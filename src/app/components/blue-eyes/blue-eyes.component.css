@@ -1,9 +1,9 @@
 .collection { padding-block: 1rem 2rem; }
-h2 { color: #173b70; }
+h2 { color: #f1d78d; }
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
 label { font-weight: 700; }
-select { min-width: 250px; padding: .6rem; border: 1px solid #729bd2; border-radius: 6px; background: #fff; }
-.controls span { color: #42566f; }
+select { min-width: 250px; padding: .6rem; border: 1px solid #729bd2; border-radius: 6px; background: #fff; color: #172638; }
+.controls span { color: #c3d7ed; }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(218px, 1fr)); gap: 1.25rem; align-items: stretch; }
-.status { padding: 1rem; border-left: 4px solid #3974c3; background: #edf4ff; }
+.status { padding: 1rem; border-left: 4px solid #3974c3; background: #edf4ff; color: #172638; }
 .status--error { border-left-color: #ad2424; color: #761919; background: #fff0f0; }

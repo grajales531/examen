@@ -8,4 +8,6 @@
 
 **Datos que pueden faltar:** magia, trampa y monstruos Link no siempre tienen nivel, ATK o DEF. Se muestra “No aplica” cuando el campo no existe; un `0` sí es un valor válido. Las imágenes vienen en `card_images`.
 
+**Imágenes:** se intentan guardar en la caché del navegador. El servidor de imágenes no permite descargarlas desde JavaScript por CORS; si ocurre, se muestran por su URL y el navegador usa su caché HTTP.
+
 **Demostración:** buscar “Dark Magician” → abrir una carta → buscar un nombre inexistente → entrar a Blue-Eyes → abrir una carta → escoger una expansión → volver a “Todas”.

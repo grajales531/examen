@@ -4,13 +4,20 @@ import { Injectable } from '@angular/core';
 export class ImageCacheService {
   private readonly cacheName = 'yugioh-card-images-v1';
   private readonly pendingImages = new Map<string, Promise<string>>();
+  private cannotStoreImages = false;
 
   getImageUrl(remoteUrl: string): Promise<string> {
     const pending = this.pendingImages.get(remoteUrl);
     if (pending) return pending;
 
+    // Si el servidor bloqueó la primera descarga, evitamos repetir intentos CORS.
+    if (this.cannotStoreImages) return Promise.resolve(remoteUrl);
+
     // Si el navegador no ofrece Cache Storage o bloquea CORS, la imagen sigue visible.
-    const request = this.loadImage(remoteUrl).catch(() => remoteUrl);
+    const request = this.loadImage(remoteUrl).catch(() => {
+      this.cannotStoreImages = true;
+      return remoteUrl;
+    });
     this.pendingImages.set(remoteUrl, request);
     return request;
   }
